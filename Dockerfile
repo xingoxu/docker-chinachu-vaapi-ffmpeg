@@ -131,6 +131,6 @@ RUN git clone git://github.com/kanreisa/Chinachu.git ~/chinachu \
     && sed -i '124d' chinachu \
     && echo 1 | ./chinachu installer \
     && cp config.sample.json config.json \
-    && echo [] > rules.json \
+    && echo [] > rules.json 
 
 VOLUME ["~/chinachu/config.json"]
