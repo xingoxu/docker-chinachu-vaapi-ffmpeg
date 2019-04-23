@@ -133,4 +133,8 @@ RUN git clone git://github.com/kanreisa/Chinachu.git ~/chinachu \
     && cp config.sample.json config.json \
     && echo [] > rules.json 
 
+RUN mkdir data
+
+WORKDIR ~/chinachu
+
 VOLUME ["~/chinachu/config.json"]
