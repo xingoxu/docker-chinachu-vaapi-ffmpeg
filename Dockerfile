@@ -128,6 +128,7 @@ RUN npm install pm2 -g \
 
 RUN git clone git://github.com/Chinachu/Chinachu.git /chinachu \
     && cd /chinachu/ \
+    ## remove internal ffmpeg install
     && sed -i '124d' chinachu \
     && echo 1 | ./chinachu installer \
     && cp config.sample.json config.json \
