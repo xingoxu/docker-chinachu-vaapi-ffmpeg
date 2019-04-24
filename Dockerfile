@@ -136,4 +136,9 @@ RUN git clone git://github.com/Chinachu/Chinachu.git /chinachu \
 
 RUN mkdir data && mkdir log
 
+RUN touch /usr/local/var/log/chinachu-wui.stdout.log \
+    && touch /usr/local/var/log/chinachu-operator.stdout.log
+
+RUN chmod -R 777 /chinachu/data && chmod -R 777 /chinachu/log
+
 WORKDIR /chinachu
