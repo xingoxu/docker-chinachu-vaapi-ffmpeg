@@ -134,13 +134,12 @@ RUN git clone git://github.com/Chinachu/Chinachu.git /chinachu \
     && cp config.sample.json config.json \
     && echo [] > rules.json 
 
-RUN mkdir data && mkdir log
+RUN mkdir /chinachu/data && mkdir /chinachu/log \
+    && chmod -R 777 /chinachu/data/ && chmod -R 777 /chinachu/log/
 
-RUN mkdir -p /usr/local/var/log
+RUN mkdir -p /usr/local/var/log 
 
 RUN touch /usr/local/var/log/chinachu-wui.stdout.log \
     && touch /usr/local/var/log/chinachu-operator.stdout.log
-
-RUN chmod -R 777 /chinachu/data && chmod -R 777 /chinachu/log
 
 WORKDIR /chinachu
