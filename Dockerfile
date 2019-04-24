@@ -126,7 +126,7 @@ RUN yum clean all \
 RUN npm install pm2 -g \
     && pm2 startup
 
-RUN git clone git://github.com/kanreisa/Chinachu.git /chinachu \
+RUN git clone git://github.com/Chinachu/Chinachu.git /chinachu \
     && cd /chinachu/ \
     && sed -i '124d' chinachu \
     && echo 1 | ./chinachu installer \
@@ -136,5 +136,3 @@ RUN git clone git://github.com/kanreisa/Chinachu.git /chinachu \
 RUN mkdir data
 
 WORKDIR /chinachu
-
-VOLUME ["/chinachu/config.json"]
