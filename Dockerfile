@@ -133,6 +133,6 @@ RUN git clone git://github.com/Chinachu/Chinachu.git /chinachu \
     && cp config.sample.json config.json \
     && echo [] > rules.json 
 
-RUN mkdir data
+RUN mkdir data && mkdir log
 
 WORKDIR /chinachu
