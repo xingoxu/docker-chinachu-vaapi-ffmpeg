@@ -1,9 +1,6 @@
 FROM centos:7
 MAINTAINER xingo xu <xingoxu@gmail.com>
 
-CMD ["ffmpeg --help"]
-ENTRYPOINT ["/bin/bash"]
-
 ARG NODEJS_VERSION=10
 ARG LIBVA_VERSION=2.4.0
 ARG VAAPI_DRIVER=2.3.0
@@ -144,6 +141,11 @@ RUN mkdir -p /usr/local/var/log
 RUN touch /usr/local/var/log/chinachu-wui.stdout.log \
     && touch /usr/local/var/log/chinachu-operator.stdout.log
 
+RUN wget -O /usr/local/bin/dumb-init https://github.com/Yelp/dumb-init/releases/download/v1.2.2/dumb-init_1.2.2_amd64
+RUN chmod +x /usr/local/bin/dumb-init
+
 ENV TZ='Asia/Tokyo'
 
 WORKDIR /chinachu
+
+ENTRYPOINT ["dumb-init", "--"]
