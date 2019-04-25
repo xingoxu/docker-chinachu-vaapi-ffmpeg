@@ -144,4 +144,6 @@ RUN mkdir -p /usr/local/var/log
 RUN touch /usr/local/var/log/chinachu-wui.stdout.log \
     && touch /usr/local/var/log/chinachu-operator.stdout.log
 
+ENV TZ='Asia/Tokyo'
+
 WORKDIR /chinachu
