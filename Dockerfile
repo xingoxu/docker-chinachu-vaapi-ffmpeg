@@ -10,6 +10,27 @@ ARG NASM_VERSION=2.14.02
 ENV PKG_CONFIG_PATH=/usr/lib/pkgconfig \
     SRC=/usr
 
+# system update
+RUN yum -y update && yum clean all
+RUN yum reinstall -y glibc-common && yum clean all
+
+# locale
+# glibcの更新より後方に記述すること
+# カスタムロケールが消えてしまう
+RUN localedef -c -i ja_JP -f UTF-8 ja_JP.UTF-8
+# `/etc/locale.conf` を見てないみたいだけど念のため
+RUN sed -i 's/^LANG="[^"]*"$/LANG="ja_JP.UTF-8"/' /etc/locale.conf
+# glibcの更新でカスタムロケールが消されないために ja_JP.utf8 を追加
+# override_install_langs=en_US.utf8
+# ↓
+# override_install_langs=en_US.utf8,ja_JP.utf8
+RUN sed -i -e '/override_install_langs/s/$/,ja_JP.utf8/g' /etc/yum.conf
+
+ENV LANG=ja_JP.UTF-8 \
+    TZ='Asia/Tokyo' \
+    LANGUAGE=ja_JP:ja \
+    LC_ALL=ja_JP.UTF-8
+
 RUN curl -sL https://rpm.nodesource.com/setup_${NODEJS_VERSION}.x | bash - \
     && yum install -y nodejs gcc-c++ make wget \
     && yum install -y --enablerepo=extras epel-release yum-utils \
@@ -143,8 +164,6 @@ RUN touch /usr/local/var/log/chinachu-wui.stdout.log \
 
 RUN wget -O /usr/local/bin/dumb-init https://github.com/Yelp/dumb-init/releases/download/v1.2.2/dumb-init_1.2.2_amd64
 RUN chmod +x /usr/local/bin/dumb-init
-
-ENV TZ='Asia/Tokyo'
 
 WORKDIR /chinachu
 
